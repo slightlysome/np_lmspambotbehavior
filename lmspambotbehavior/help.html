@@ -1,0 +1,148 @@
+<h3>Plugin overview</h3>
+
+<p>
+The NP_LMSpamBotBehavior plugin is a spam fighting plugin implementing the 
+<a href="http://nucleus.slightlysome.net/blog/lmcommentmoderator-spamcheck-api-description">NP_LMCommentModerator SpamCheck API</a>.
+It analyzes how the client of the comment author behave when a comment is posted. 
+If the client fits a bot behavior profile, will the spam check return <code>Spam</code>.
+</p>
+
+<p>
+The NP_LMSpamBotBehavior plugin just implements the SpamCheck API events. 
+For this plugin to do any work is it required that the NP_LMCommentModerator plugin is installed and used for comment moderation. 
+The NP_LMCommentModerator plugin can be downloaded from the NP_LMCommentModerator <a href="http://nucleus.slightlysome.net/plugins/lmcommentmoderator">plugin page</a>.
+</p>
+
+
+<h3>Installation</h3>
+
+<ul>
+<li>
+Upload the <code>NP_LMSpamBotBehavior.php</code> file and the <code>lmspambotbehavior</code> directory from the zip file 
+to the Nucleus CMS plugins directory (<code>nucleus/plugins</code>) on your web server.
+</li>
+<li>
+Go to the Plugins page in the admin area. You should be able to select the plugin in the dropdown list under the "Install New Plugin" section and press the "Install Plugin" button.
+</li>
+</ul>
+
+<h3>Upgrade</h3>
+
+<ul>
+<li>
+Take a backup of the current plugin files. You will need these if you want to rollback to the previous version after the upgrade.
+</li>
+<li>
+Take a backup of the database used for you Nucleus installation.
+</li>
+<li>
+Replace the old plugin files with the new ones. Do not uninstall the plugin.
+</li>
+<li>
+If a plugin data upgrade is needed, will an upgrade plugin data option be 
+available on the NP_LMSpamBotBehavior plugin admin page. Choose this option to upgrade the plugin data.
+</li>
+<li>
+After the plugin data upgrade has been performed may a rollback option and a commit option be available on the NP_LMSpamBotBehavior 
+plugin admin page. Not all upgrades support the rollback and commit option.
+</li>
+<li>
+If you are not pleased with the new version of the plugin you may use the rollback option to rollback the plugin data upgrade. 
+After the rollback of the plugin data upgrade you have to replace the new plugin files with the old plugin files.
+</li>
+<li>
+If you are pleased with the new version of the plugin you should use the commit option to commit the plugin data upgrade. 
+After the commit of the plugin data upgrade will any rollback and commit options disappear.
+</li>
+</ul>
+
+<h3>Configuration</h3>
+
+<p>
+The NP_LMSpamBotBehavior plugin has the following options:
+</p>
+
+<ul>
+<li><b>Delete NP_LMSpamBotBehavior data tables on uninstall</b> - Should the data tables the plugin uses be deleted at uninstall.
+</li>
+<li><b>Enable spam bot behavior check</b> - Should the plugin spam check comments against bot behavior.
+</li>
+<li><b>Enable bot behavior image</b> - Should the plugin use the image behavior check when checking comments against bot behavior. 
+This option is set to <code>No</code> by default. 
+Do not enable this option until after your item skin is set up to use the BotBehaviorImage skin variable.
+If this option is enabled without the BotBehaviorImage skin variable being set up properly, 
+will all comments that are not white listed be categorized as <code>Spam</code>.
+</li>
+</ul>
+
+<h3>Usage</h3>
+
+<p>
+After the plugin is installed will it automatically be used by the NP_LMCommentModerator plugin to check for spam comments.
+You may want to set up the image behavior check, as it improves the bot behavior checking.
+</p>
+
+<h3>BotBehaviorImage</h3>
+
+<p>
+Skin variable used to insert a image element with a tiny invisible image on the web page. 
+The image element is used by the NP_LMSpamBotBehavior plugin to analyze the behavior of the client. 
+This skin variable must be inserted on the web page somewhere after the comment form. 
+It is recommended to insert the skin variable in the footer of the web page.
+</p>
+
+<pre>&lt;%LMSpamBotBehavior(BotBehaviorImage)%&gt;</pre>
+
+<p>
+Since the URL for the image element is cloaked you will have to add a rewrite rule for your webserver:
+</p>
+
+<ul>
+<li>Create a <code>.htaccess</code> file to the root directory of your Nucleus CMS installation with the following contents:
+<pre>&lt;IfModule mod_rewrite.c&gt;
+    RewriteEngine on
+	
+    RewriteRule ^image.php$ action.php?action=plugin&amp;name=lmspambotbehavior&amp;type=image [L,QSA]
+&lt;/IfModule&gt;</pre>
+</li>
+<li>If you already have a <code>.htaccess</code> file with rewrite rules for NP_LMFancierURL, 
+you can take the <code>RewriteRule</code> line and add it just bellow the <code>RewriteEngine</code> line in your existing <code>.htaccess</code> file.
+</li>
+</ul>
+
+<h3>Support and Bug reports</h3>
+
+<p>
+For additional support and/or bug reports please use the Nucleus forum 
+<a href="http://forum.nucleuscms.org/viewtopic.php?t=21304">plugin announce thread</a> 
+or the <a href="http://nucleus.slightlysome.net/plugins/lmspambotbehavior">plugin page</a> comment section.
+</p>
+
+<h3>Compability</h3>
+
+<p>
+This version of the NP_LMSpamBotBehavior plugin is tested against version 3.66 of LMNucleus CMS. 
+The minimum version of Nucleus CMS needed for using this plugin is 3.60.
+The minimum version of the NP_LMCommentModerator plugin needed by this plugin is 1.0.0. 
+The mod_rewrite module must be enabled on the web server to use the bot behavior image functionality.
+</p>
+
+<h3>Version History</h3>
+
+<ul>
+<li><b>v1.0.0 2014-04-13:</b> by Leo (http://nucleus.slightlysome.net/leo)</li>
+<ul>
+<li>Initial release.</li>
+</ul>
+</ul>
+
+<h3>Download</h3>
+
+<p>
+<a href="http://nucleus.slightlysome.net/files/NP_LMSpamBotBehavior_v100.zip" title="Download NP_LMSpamBotBehavior_v100.zip">Download NP_LMSpamBotBehavior v1.0.0</a>.
+The latest version of the NP_LMSpamBotBehavior plugin can be downloaded from the NP_LMSpamBotBehavior <a href="http://nucleus.slightlysome.net/plugins/lmspambotbehavior">plugin page</a>.
+</p>
+
+<p>
+The latest version of the LMCommentModerator plugin can be downloaded from the NP_LMCommentModerator <a href="http://nucleus.slightlysome.net/plugins/lmcommentmoderator">plugin page</a>.
+</p>
